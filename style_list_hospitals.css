@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+*{
+  font-family: K2D;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.grid,.popular_hospital{
+  margin: auto;
+  width: 99%;
+  height: auto;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  gap: 10px;
+  justify-content: space-around;
+  backdrop-filter: blur(20px);
+}
+
+
+body{
+  background: linear-gradient(135deg,#F7CAC9,#FFE5B4);
+}
+.card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  transition: transform  .5s ease-in-out;
+  background:linear-gradient(270deg,rgb(255,255,255,0.2),rgb(255,255,255,0.1));
+  border:solid 2px rgb(255,255,255,0.2);
+  border-radius: 15px;
+  box-shadow: 1px 1px 10px rgba(3, 3, 3, 0.1);
+}
+
+.popular_hospital:hover > :not(:hover){
+  transform:  scale(.985);
+}
+
+.card-img{
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-img img{
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+h2, p{
+  color: #3d3d3d;
+  margin: 3px;
+  cursor: pointer;
+  text-align: center;
+}
+h2{
+  font-size: 16px;
+}
+p{
+  font-size: 13px;
+}
+
+@keyframes fadeIn {
+  0%{
+    width: 0%;
+  }
+  100%{
+    width: 100%;
+  }
+}
+@keyframes fadeOut {
+  0%{
+    width: 100%;
+  }
+  100%{
+    width: 0%;
+  }
+}
+
+#popular_Hospitals_Title,#Recent_Search{
+  font-size: 20px;
+  text-align: start;
+  padding: 12px;
+}
+
+header{
+  width: 99%;
+  margin: auto;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  position: sticky;
+  top: 2px;
+  backdrop-filter: blur(10px);
+  background: transparent;
+}
+.right{
+  gap: 10px;
+  display: flex ;
+  flex-shrink:unset;
+  justify-content: flex-start;
+}
+.sear{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+#search{
+  width: 0%;
+  visibility: hidden;
+  margin-left: 3%;
+  height: 25px;
+  border: 1px solid;
+  border-radius: 30px;
+  padding-left: 5%;
+  background-color: #ffffff;
+}
+
+.menu{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.menu button{
+  display: flex;
+  background: none;
+  border: none;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.MenuPanel{
+  display: flex;
+  gap: 10px;
+}
+.MenuPanel a{
+  padding: 5px;
+  font-size: medium;
+  text-wrap: nowrap;
+  color: black;
+  border-radius: 9px 9px 9px 9px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.MenuPanel a:hover{
+  color: #fff;
+  background-image: linear-gradient(to right, #ffd03a ,#ff7b3c );
+}
+
+@media screen and (max-width: 750px) {
+  .MenuPanel{
+    width: 250px;
+    height: max-content;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: max-content;
+    position: fixed;
+    top: 64px;
+    left: -500px;
+    z-index: 999;
+    box-shadow: 0px  4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: #fff;
+  }
+  
+  @keyframes slideInRight {
+    0% {left: -500px;}
+    100% {left:  10px;}
+  }
+  
+  @keyframes slideInLeft {
+    0% {left: 10px;}
+    100% {left:  -500px;}
+  }
+  
+  .MenuPanel a{
+    margin: 15px;
+    padding: 15px;
+    font-size: larger;
+    text-decoration: none;
+    color: black;
+    width: 120%;
+    padding: 8px 12px;
+    border-radius: 9px 9px 9px 9px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+  .MenuPanel a:hover, .MenuPanel a.active {
+    color: #fff;
+    background-image: linear-gradient(to right, #ffd03a ,#ff7b3c );
+  }
+}
+
+.title{
+  width: max-content;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.c1{
+  color:black;
+}
+
+.c2{
+  color:#C42121;
+}
+
+
+main{
+  transition: filter 0.7s ease-in-out;
+  filter: blur(0px);
+}
+
+.viewMore{
+  border: none;
+  color: #46e26a;
+  font-style: italic;
+  text-decoration: underline;
+  border-radius: 15px;
+  background: transparent;
+  width: 100px;
+  cursor: pointer;
+  margin: 5px;
+  transition: all 0.3s ease-in-out;
+  height: 25px;
+  position: relative;
+  bottom: -10px;
+  z-index: 1000;
+}
+.viewMore:hover{
+  transform: scale(1.05);
+  color: #aaaaaa;
+  background-color: grey;
+
+}
