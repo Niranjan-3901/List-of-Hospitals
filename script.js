@@ -122,10 +122,10 @@ function createCard(hName, container) {
   card_img.className = "card-img";
   const Name = document.createElement("h2");
   const location = document.createElement("p");
-  // const but=document.createElement("button")
-  // but.textContent="View More..."
-  // but.id="viewMore"
-  // but.className="viewMore"
+  const but=document.createElement("button")
+  but.textContent="View More..."
+  but.id="viewMore"
+  but.className="viewMore"
   const image = document.createElement("img");
   let Hospital_details = Maindata[hName];
   image.src = selectImage();
@@ -153,7 +153,7 @@ function createCard(hName, container) {
   newCard.appendChild(card_img);
   newCard.appendChild(Name);
   newCard.appendChild(location);
-  // newCard.appendChild(but)
+  newCard.appendChild(but)
   document.getElementById(container).appendChild(newCard);
 }
 
