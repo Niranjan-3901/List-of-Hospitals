@@ -211,7 +211,7 @@ document.body.addEventListener("click", (event) => {
 window.addEventListener("resize", () => {
   console.log(window.screen.width, window.innerWidth);
   let button = document.getElementById("menuButton");
-  if (window.innerWidth <= 750) {
+  if (window.innerWidth <= 875) {
     button.innerHTML = svgs[1];
   } else {
     if (button.firstChild) {
