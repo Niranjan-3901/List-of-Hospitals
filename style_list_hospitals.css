@@ -254,6 +254,7 @@ li:hover::before{
 
 li:hover{
   color: white;
+  cursor: pointer;
   background: linear-gradient(45deg, #bcdbef, #acdf01);
   transition: 0.1s cubic-bezier(0.47, 0, 0.745, 0.715);
 }
