@@ -123,7 +123,7 @@ function createCard(hName, container) {
   const Name = document.createElement("h2");
   const location = document.createElement("p");
   const but=document.createElement("button")
-  but.textContent="View More..."
+  but.textContent="View More"
   but.id="viewMore"
   but.className="viewMore"
   const image = document.createElement("img");
@@ -209,7 +209,6 @@ document.body.addEventListener("click", (event) => {
 });
 
 window.addEventListener("resize", () => {
-  console.log(window.screen.width, window.innerWidth);
   let button = document.getElementById("menuButton");
   if (window.innerWidth <= 875) {
     button.innerHTML = svgs[1];
