@@ -20,16 +20,14 @@ async function fetchMainData() {
   try {
     const data = await fetchData();
     Maindata = {};
-    data.sort(function (a, b) {
-      return a["NAME"] > b["NAME"] ? 1 : -1;
-    });
+    data.sort((a, b) => { return a["NAME"] > b["NAME"] ? 1 : -1; });
     for (const i of data) {
       if (!Maindata[i.NAME]) {
         Maindata[i.NAME] = i;
       }
     }
     showPopular();
-    addDataset();
+    addDataList();
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -40,36 +38,34 @@ function selectImage() {
   return image;
 }
 
-function searchVisible() {
-  let search_box = document.createElement("input");
-  search_box.setAttribute("id", "search");
-  search_box.setAttribute("type", "search");
-  search_box.setAttribute("name", "search");
-  search_box.setAttribute("placeholder", "Search...");
-  search_box.setAttribute("list", "data");
-  search_box.dataset.visible = "false";
-  search_box.setAttribute("onblur", "hideSearch()");
-  document.getElementById("sear").appendChild(search_box);
-  if (search_box.dataset.visible) {
-    search_box.style.visibility = "visible";
-    search_box.style.animation = "fadeIn 0.5s forwards";
-    search_box.dataset.visible = true;
+function makeSearchBoxVisible() {
+  let searchInputBox = document.createElement("input");
+  searchInputBox.setAttribute("id", "search");
+  searchInputBox.setAttribute("type", "search");
+  searchInputBox.setAttribute("name", "search");
+  searchInputBox.setAttribute("placeholder", "Search...");
+  searchInputBox.setAttribute("list", "data");
+  searchInputBox.dataset.visible = "false";
+  searchInputBox.setAttribute("onblur", "makeSearchBoxhidden()");
+  document.getElementById("sear").appendChild(searchInputBox);
+  if (searchInputBox.dataset.visible) {
+    searchInputBox.style.visibility = "visible";
+    searchInputBox.style.animation = "fadeIn 0.5s forwards";
+    searchInputBox.dataset.visible = true;
   } else {
-    search_box.style.visibility = "hidden";
-    search_box.style.animation = "fadeOut 0.5s forwards";
-    search_box.dataset.visible = false;
+    searchInputBox.style.visibility = "hidden";
+    searchInputBox.style.animation = "fadeOut 0.5s forwards";
+    searchInputBox.dataset.visible = false;
   }
 
   document.getElementById("search").addEventListener("change", (event) => {
     const selectedValue = event.target.value;
-    createCard(selectedValue, "grid");
+    createHospitalCard(selectedValue, "grid");
   });
 }
 
-function hideSearch() {
-  document
-    .getElementById("sear")
-    .removeChild(document.getElementById("search"));
+function makeSearchBoxhidden() {
+  document.getElementById("sear").removeChild(document.getElementById("search"));
 }
 
 async function fetchData() {
@@ -86,7 +82,7 @@ async function fetchData() {
   }
 }
 
-async function addDataset() {
+async function addDataList() {
   try {
     const searDiv = document.getElementById("sear");
     const datalist = document.createElement("datalist");
@@ -105,27 +101,27 @@ async function addDataset() {
 
 function showPopular() {
   let keys = Object.keys(Maindata);
-  ranInd = [];
+  randomIndices = [];
   for (let i = 0; i < 8; i++) {
     let randomIndex = Math.floor(Math.random() * keys.length);
-    while (ranInd.includes(randomIndex))
+    while (randomIndices.includes(randomIndex))
       randomIndex = Math.floor(Math.random() * keys.length);
-    ranInd.push(randomIndex);
-    createCard(keys[randomIndex], "popular_hospital");
+    randomIndices.push(randomIndex);
+    createHospitalCard(keys[randomIndex], "popular_hospital");
   }
 }
 
-function createCard(hName, container) {
+function createHospitalCard(hName, container) {
   const newCard = document.createElement("div");
   newCard.className = "card";
   const card_img = document.createElement("div");
   card_img.className = "card-img";
   const Name = document.createElement("h2");
   const location = document.createElement("p");
-  const but=document.createElement("button")
-  but.textContent="View More"
-  but.id="viewMore"
-  but.className="viewMore"
+  const viewMoreButton = document.createElement("button")
+  viewMoreButton.textContent = "View More"
+  viewMoreButton.id = "viewMore"
+  viewMoreButton.className = "viewMore"
   const image = document.createElement("img");
   let Hospital_details = Maindata[hName];
   image.src = selectImage();
@@ -138,7 +134,7 @@ function createCard(hName, container) {
   }
   Name.textContent = thename;
   newCard.title = thename;
-  Addr = capital(Hospital_details["ADDRESS"]);
+  Addr = capitalize(Hospital_details["ADDRESS"]);
   city = Hospital_details["CITY"].toUpperCase();
   pinCode = Hospital_details["PIN CODE"];
   location.innerHTML =
@@ -153,45 +149,45 @@ function createCard(hName, container) {
   newCard.appendChild(card_img);
   newCard.appendChild(Name);
   newCard.appendChild(location);
-  newCard.appendChild(but)
+  newCard.appendChild(viewMoreButton)
   document.getElementById(container).appendChild(newCard);
 }
 
-const capital = (s) => {
-  words = s.split(" ");
+const capitalize = (string) => {
+  words = string.split(" ");
   return words.map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 };
 
 function menuHandle() {
-  let button = document.getElementById("menuButton");
-  let panel = document.querySelector(".MenuPanel");
-  switch (button.value) {
+  let menuButton = document.getElementById("menuButton");
+  let menuPanel = document.querySelector(".MenuPanel");
+  switch (menuButton.value) {
     case "menuMode":
-      button.innerHTML = svgs[0];
-      panel.style.animation = "slideInRight .7s ease forwards";
+      menuButton.innerHTML = svgs[0];
+      menuPanel.style.animation = "slideInRight .7s ease forwards";
       document.querySelector("main").style.filter = "blur(3px)";
       document.querySelector("main").style.pointerEvents = "none";
-      panel.dataset.value = "open";
-      button.value = "closeMenu";
+      menuPanel.dataset.value = "open";
+      menuButton.value = "closeMenu";
       break;
     default:
-      button.innerHTML = svgs[1];
-      panel.style.animation = "slideInLeft .7s ease forwards";
+      menuButton.innerHTML = svgs[1];
+      menuPanel.style.animation = "slideInLeft .7s ease forwards";
       document.querySelector("main").style.filter = "blur(0px)";
       document.querySelector("main").style.pointerEvents = "auto";
-      panel.dataset.value = "closed";
-      button.value = "menuMode";
+      menuPanel.dataset.value = "closed";
+      menuButton.value = "menuMode";
   }
 }
 
-function closeMenu(e) {
-  if (e.dataset.value == "open") {
+function closeMenu(element) {
+  if (element.dataset.value == "open") {
     let button = document.getElementById("menuButton");
     button.innerHTML = svgs[1];
-    e.style.animation = "slideInLeft .7s ease forwards";
+    element.style.animation = "slideInLeft .7s ease forwards";
     document.querySelector("main").style.filter = "blur(0px)";
     document.querySelector("main").style.pointerEvents = "auto";
-    e.dataset.value = "closed";
+    element.dataset.value = "closed";
     button.value = "menuMode";
   }
 }
@@ -227,3 +223,15 @@ document.addEventListener("mouseover", (event) => {
     targetElement.title = targetElement.id;
   }
 });
+
+document.addEventListener("click", (event) => {
+  if (event.target.closest(".menuButton")) {
+    menuHandle();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", fetchMainData());
+
+document.addEventListener("click",(event)=>{
+  if(event.target.closest(".label_of_search")) makeSearchBoxVisible();
+})

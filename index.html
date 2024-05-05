@@ -8,14 +8,14 @@
   <link rel="stylesheet" href="style_list_hospitals.css">
 </head>
 
-<body onload="fetchMainData()">
+<body>
   <header>
     <div class="menu">
-      <button id="menuButton" title="options" onclick="menuHandle()" class="menuButton" value="menuMode"></button>
-      <div class="title" title="MediGo"><span class="c1">Medi</span><span class="c2">Go</span></div>
+      <button id="menuButton" title="options" class="menuButton" value="menuMode"></button>
+      <div id="title-div" class="title" title="MediGo"><span class="c1">Medi</span><span class="c2">Go</span></div>
     </div>
 
-    <div class="MenuPanel" data-value="" onblur="closeMenu(this)">
+    <div class="MenuPanel" id="MenuPanel" data-value="" >
       <ul>
         <li>Home</li>
         <li>Prescriptions</li>
@@ -27,7 +27,7 @@
 
     <div class="right">
       <div class="sear" id="sear" title="Search Hospitals">
-        <label for="search" id="label_of_search" onclick="searchVisible()">
+        <label for="search" id="label_of_search" class="label_of_search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
             viewBox="0 0 16 16">
             <path
