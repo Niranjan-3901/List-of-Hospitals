@@ -1,4 +1,4 @@
-var images = [
+var imageList = [
   "img/1.jpg",
   "img/2.jpg",
   "img/3.jpg",
@@ -10,20 +10,20 @@ var images = [
   "img/9.jpg",
   "img/10.jpg",
 ];
-var svgs = [
+var svgList = [
   '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/></svg>',
   '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/></svg>',
 ];
-let Maindata = {};
+let mainData = {};
 
 async function fetchMainData() {
   try {
     const data = await fetchData();
-    Maindata = {};
+    mainData = {};
     data.sort((a, b) => { return a["NAME"] > b["NAME"] ? 1 : -1; });
     for (const i of data) {
-      if (!Maindata[i.NAME]) {
-        Maindata[i.NAME] = i;
+      if (!mainData[i.NAME]) {
+        mainData[i.NAME] = i;
       }
     }
     showPopular();
@@ -34,7 +34,7 @@ async function fetchMainData() {
 }
 
 function selectImage() {
-  var image = images[Math.floor(Math.random() * images.length)];
+  var image = imageList[Math.floor(Math.random() * imageList.length)];
   return image;
 }
 
@@ -87,10 +87,10 @@ async function addDataList() {
     const searDiv = document.getElementById("sear");
     const datalist = document.createElement("datalist");
     datalist.id = "data";
-    for (const key in Maindata) {
+    for (const key in mainData) {
       let option = document.createElement("OPTION");
-      option.text = Maindata[key]["NAME"];
-      option.value = Maindata[key]["NAME"];
+      option.text = mainData[key]["NAME"];
+      option.value = mainData[key]["NAME"];
       datalist.appendChild(option);
     }
     searDiv.appendChild(datalist);
@@ -100,14 +100,14 @@ async function addDataList() {
 }
 
 function showPopular() {
-  let keys = Object.keys(Maindata);
+  let keyList = Object.keys(mainData);
   randomIndices = [];
   for (let i = 0; i < 8; i++) {
-    let randomIndex = Math.floor(Math.random() * keys.length);
+    let randomIndex = Math.floor(Math.random() * keyList.length);
     while (randomIndices.includes(randomIndex))
-      randomIndex = Math.floor(Math.random() * keys.length);
+      randomIndex = Math.floor(Math.random() * keyList.length);
     randomIndices.push(randomIndex);
-    createHospitalCard(keys[randomIndex], "popular_hospital");
+    createHospitalCard(keyList[randomIndex], "popular_hospital");
   }
 }
 
@@ -123,7 +123,7 @@ function createHospitalCard(hName, container) {
   viewMoreButton.id = "viewMore"
   viewMoreButton.className = "viewMore"
   const image = document.createElement("img");
-  let Hospital_details = Maindata[hName];
+  let Hospital_details = mainData[hName];
   image.src = selectImage();
   image.alt = image.src;
   nameH = Hospital_details["NAME"].toUpperCase();
@@ -167,7 +167,7 @@ function menuHandle() {
   let menuPanel = document.querySelector(".MenuPanel");
   switch (menuButton.value) {
     case "menuMode":
-      menuButton.innerHTML = svgs[0];
+      menuButton.innerHTML = svgList[0];
       menuPanel.style.animation = "slideInRight .7s ease forwards";
       document.querySelector("main").style.filter = "blur(3px)";
       document.querySelector("main").style.pointerEvents = "none";
@@ -175,7 +175,7 @@ function menuHandle() {
       menuButton.value = "closeMenu";
       break;
     default:
-      menuButton.innerHTML = svgs[1];
+      menuButton.innerHTML = svgList[1];
       menuPanel.style.animation = "slideInLeft .7s ease forwards";
       document.querySelector("main").style.filter = "blur(0px)";
       document.querySelector("main").style.pointerEvents = "auto";
@@ -187,7 +187,7 @@ function menuHandle() {
 function closeMenu(element) {
   if (element.dataset.value == "open") {
     let button = document.getElementById("menuButton");
-    button.innerHTML = svgs[1];
+    button.innerHTML = svgList[1];
     element.style.animation = "slideInLeft .7s ease forwards";
     document.querySelector("main").style.filter = "blur(0px)";
     document.querySelector("main").style.pointerEvents = "auto";
@@ -211,7 +211,7 @@ document.body.addEventListener("click", (event) => {
 window.addEventListener("resize", () => {
   let button = document.getElementById("menuButton");
   if (window.innerWidth <= 875) {
-    button.innerHTML = svgs[1];
+    button.innerHTML = svgList[1];
   } else {
     if (button.firstChild) {
       button.removeChild(button.firstChild);
