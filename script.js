@@ -250,10 +250,8 @@ document.addEventListener("DOMContentLoaded", fetchMainData());
 
 document.addEventListener("dblclick", (event) => {
   const clickedCard = event.target.closest(".card");
-  if(clickedCard){
-  let className = clickedCard.classList[1];}
   if (clickedCard && document.body.dataset.is_dbl_clicked == "false" && clickedCard.closest(".grid")) {
-    addDoubleClickBlock(event, clickedCard, className)
+    addDoubleClickBlock(event, clickedCard)
   }
   else if(document.body.dataset.is_dbl_clicked == "true") {
     clickedCard.removeChild(document.getElementById("option-block"))
